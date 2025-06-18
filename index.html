@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediSwift Pune - Interactive Project Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 
+    Chosen Palette: "Calm Health-Tech". A professional and trustworthy theme using a base of cool grays, a primary accent of calming blue (#3B82F6) for trust and technology, and a secondary accent of soft green (#10B981) for health and growth.
+    Application Structure Plan: A narrative, single-page scrolling experience designed to guide an investor logically through the business plan. It starts with the high-level vision (The Pitch), moves to the "Why" (The Opportunity), the "How" (The Solution), the execution plan (The Strategy), and ends with the clear call-to-action (The Ask). This structure is more persuasive and engaging than a simple replication of the report's sections, making the investment case more compelling.
+    Visualization & Content Choices: 
+    - The Ask (Fund Allocation): Goal: Inform/Compare. Method: Donut Chart (Chart.js) for intuitive part-to-whole relationship. Interaction: Hover to see details of each allocation. Justification: Instantly communicates the financial plan's structure.
+    - Key Metrics (Market Size, Population): Goal: Engage/Inform. Method: Dynamic number counters. Interaction: Numbers animate when scrolling into view. Justification: Creates a dynamic and impressive reveal of key data.
+    - The Problem (Pain Points): Goal: Inform. Method: Icon-driven grid layout. Interaction: None. Justification: Highly scannable and makes the problems feel tangible and distinct.
+    - Go-to-Market Strategy: Goal: Organize. Method: Interactive phased timeline. Interaction: Clicking a phase button highlights its details. Justification: Clearly presents the rollout plan as a concrete, step-by-step strategy.
+    CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. 
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .section-title {
+            @apply text-3xl font-bold text-gray-800 text-center;
+        }
+        .section-subtitle {
+            @apply text-lg text-gray-500 text-center mt-2 max-w-2xl mx-auto;
+        }
+        .nav-link {
+            @apply px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-300;
+        }
+        .phase-btn {
+            @apply w-full text-left p-4 rounded-lg cursor-pointer transition-all duration-300;
+        }
+        .phase-btn.active {
+            @apply bg-blue-600 text-white shadow-lg;
+        }
+        .phase-btn:not(.active) {
+            @apply bg-white hover:bg-gray-50;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">MediSwift</a>
+            <div class="hidden md:flex space-x-2">
+                <a href="#opportunity" class="nav-link">Opportunity</a>
+                <a href="#solution" class="nav-link">Solution</a>
+                <a href="#strategy" class="nav-link">Strategy</a>
+                <a href="#ask" class="nav-link">The Ask</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="bg-white text-center py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800">The "Blinkit for Medicines"</h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">An on-demand platform delivering medicines from local pharmacies to your door in under 30 minutes.</p>
+                <a href="#ask" class="mt-8 inline-block bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-transform duration-300 hover:scale-105">View Investment Opportunity</a>
+            </div>
+        </section>
+
+        <!-- The Opportunity Section -->
+        <section id="opportunity" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">The Opportunity</h2>
+                <p class="section-subtitle">Addressing a clear market need with a proven model at the perfect time.</p>
+                
+                <div class="mt-12 grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">The Problem: An Urgent Inconvenience</h3>
+                        <p class="mb-6">For millions in Pune, getting essential medicines is a friction-filled process. We solve the key pain points of inconvenience, urgency, accessibility, and the lack of immediacy from traditional online options.</p>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">🕒<span class="block mt-1 font-medium">Time-Consuming</span></div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">🏃<span class="block mt-1 font-medium">Urgent Need</span></div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">♿<span class="block mt-1 font-medium">Inaccessible</span></div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">🚚<span class="block mt-1 font-medium">Too Slow</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">The Market: Ripe for Disruption</h3>
+                        <p class="mb-6">We are entering a massive, growing market with a tech-savvy user base ready for a quick-commerce solution for their healthcare needs.</p>
+                        <div class="bg-white p-6 rounded-lg shadow-sm space-y-4">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-lg">Pune Population</span>
+                                <span class="dynamic-counter text-3xl font-bold text-blue-600" data-target="7000000">0</span>
+                            </div>
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-lg">Health-Tech Market (2026)</span>
+                                <div><span class="text-3xl font-bold text-blue-600">$</span><span class="dynamic-counter text-3xl font-bold text-blue-600" data-target="50">0</span><span class="text-3xl font-bold text-blue-600">B</span></div>
+                            </div>
+                             <div class="flex justify-between items-baseline">
+                                <span class="text-lg">Online Pharmacy Growth</span>
+                                <div><span class="dynamic-counter text-3xl font-bold text-blue-600" data-target="20">0</span><span class="text-3xl font-bold text-blue-600">%+</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Solution Section -->
+        <section id="solution" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">The Solution: A 3-Sided Marketplace</h2>
+                <p class="section-subtitle">Our platform creates value for everyone in the ecosystem, powered by a smart routing algorithm to ensure speed and reliability.</p>
+
+                <div class="mt-12 grid md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6">
+                        <div class="text-6xl mb-4">📱</div>
+                        <h3 class="text-xl font-semibold mb-2">For Consumers</h3>
+                        <p>User-friendly app to get medicines delivered in under 30 minutes.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-6xl mb-4">🏥</div>
+                        <h3 class="text-xl font-semibold mb-2">For Pharmacies</h3>
+                        <p>A new sales channel to reach more customers and compete with large chains.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-6xl mb-4">🏍️</div>
+                        <h3 class="text-xl font-semibold mb-2">For Delivery Riders</h3>
+                        <p>A flexible source of income, empowering the local gig economy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Strategy Section -->
+        <section id="strategy" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">The Strategy</h2>
+                <p class="section-subtitle">Our plan combines a clear revenue model with a phased, data-driven rollout to ensure market domination, one zone at a time.</p>
+
+                <div class="mt-12 grid md:grid-cols-2 gap-12">
+                    <!-- Business Model -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Business Model</h3>
+                        <p class="mb-6">We are a pure-play platform. We don't hold inventory. Revenue is generated through transparent fees.</p>
+                        <div class="space-y-4">
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-lg text-green-600">Convenience Fee</h4>
+                                <p>A flat fee (e.g., ₹35-50) charged to the customer for the convenience of instant delivery.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <h4 class="font-bold text-lg text-green-600">Pharmacy Commission</h4>
+                                <p>A small commission (e.g., 5-8%) on the order value, charged to our pharmacy partners.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Go-to-Market -->
+                    <div>
+                         <h3 class="text-2xl font-semibold text-gray-800 mb-4">Go-to-Market Plan</h3>
+                         <div class="flex flex-col space-y-2">
+                            <div id="phase1-btn" class="phase-btn active">
+                                <h4 class="font-bold">Phase 1 (Months 1-2): Launch</h4>
+                                <p id="phase1-details" class="text-sm mt-1">Onboard 15-20 pharmacies and 20 riders in Zone 1 (Kothrud & Karve Nagar).</p>
+                            </div>
+                            <div id="phase2-btn" class="phase-btn">
+                                <h4 class="font-bold">Phase 2 (Months 3-6): Acquire</h4>
+                                 <p id="phase2-details" class="text-sm mt-1 hidden">Execute hyper-local marketing in Zone 1. Drive adoption with promotions.</p>
+                            </div>
+                            <div id="phase3-btn" class="phase-btn">
+                                <h4 class="font-bold">Phase 3 (Months 7-12): Expand</h4>
+                                <p id="phase3-details" class="text-sm mt-1 hidden">Replicate the successful model in new zones like Viman Nagar, Baner, and Hinjawadi.</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- The Ask Section -->
+        <section id="ask" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">The Ask: A Seed for Growth</h2>
+                <p class="section-subtitle">We are seeking a seed grant to develop our product, launch in our first market zone, and fuel our initial operations.</p>
+                <div class="mt-12 grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-center md:text-left">
+                        <p class="text-lg text-gray-600">Funding Request</p>
+                        <p class="text-7xl font-bold text-blue-600 my-2">₹30 Lakhs</p>
+                        <p class="text-lg text-gray-600">This seed capital will provide a 6-month runway to prove our model and achieve key milestones.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Allocation of Funds</h3>
+                        <div class="chart-container relative h-80 w-full max-w-sm mx-auto">
+                            <canvas id="fundingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="text-center py-8">
+        <p class="text-gray-500">&copy; 2025 MediSwift. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chart.js: Funding Allocation Donut Chart
+            const ctx = document.getElementById('fundingChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Technology (40%)', 'Marketing & Launch (30%)', 'Operations (30%)'],
+                    datasets: [{
+                        label: 'Funding Allocation',
+                        data: [12, 9, 9], // Lakhs
+                        backgroundColor: [
+                            '#3B82F6', // Blue
+                            '#10B981', // Green
+                            '#F59E0B'  // Amber
+                        ],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += `₹${context.parsed} Lakhs`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Dynamic Number Counters
+            const counters = document.querySelectorAll('.dynamic-counter');
+            const speed = 200; 
+
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const updateCount = () => {
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 10);
+                    } else {
+                        counter.innerText = target.toLocaleString('en-IN');
+                    }
+                };
+                updateCount();
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.7 });
+
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+
+            // Go-to-Market Strategy Interaction
+            const phaseBtns = [
+                document.getElementById('phase1-btn'),
+                document.getElementById('phase2-btn'),
+                document.getElementById('phase3-btn')
+            ];
+            const phaseDetails = [
+                 document.getElementById('phase1-details'),
+                 document.getElementById('phase2-details'),
+                 document.getElementById('phase3-details')
+            ];
+
+            phaseBtns.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    phaseBtns.forEach(b => b.classList.remove('active'));
+                    phaseDetails.forEach(d => d.classList.add('hidden'));
+
+                    btn.classList.add('active');
+                    phaseDetails[index].classList.remove('hidden');
+                });
+            });
+
+            // Smooth scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
